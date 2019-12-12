@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html>
+ 
+	<head>
+		<meta charset="UTF-8">
+		<title>注册</title>
+		<script type="text/javascript" src="../js/jquery-3.3.1.min.js">
+		</script>
+		<script type="text/javascript">
+			$(function() {
+ 
+ 
+				//密码
+				$("#pass").blur(function() {
+					//对密码进行验证		
+					checkPassword("#pass", "#passInfo");
+				}).focus(function() {
+					clearInfo("#passInfo");
+				});
+				//验证
+				function checkPassword(id, info) {
+					var reg = /^[\d]{6,10}$/
+					var $pass = $(id).val();
+					if(!reg.test($pass)) {
+						setInfo(info, "密码必须为6到10位数字");
+						return false;
+					}
+					return true;
+				}
+ 
+				//重复密码
+				$("#passwordAgain").blur(function() {
+					//对重复密码进行验证
+					checkPasswordAgain("#pass", "#passwordAgain", "#passwordAgainInfo");
+				}).focus(function() {
+					clearInfo("#passwordAgainInfo");
+				});
+				//验证
+				function checkPasswordAgain(pwd1, pwd2, info) {
+					var $pwd1 = $(pwd1).val();
+					var $pwd2 = $(pwd2).val();
+					if($pwd1 != $pwd2) {
+						setInfo(info, "重复密码与原密码不一致");
+						return false;
+					}
+					var reg = /^[\d]{6,10}$/;
+					if(!reg.test($pwd2)) {
+						setInfo(info, "重复密码必须为6到10位数字");
+						return false;
+					}
+					return true;
+				}
+ 
+				//邮箱
+				$("#email").blur(function() {
+					//对邮箱进行验证		
+					checkEmail("#email", "#emailInfo");
+				}).focus(function() {
+					clearInfo("#emailInfo");
+				});
+				//验证
+				function checkEmail(id, info) {
+					var reg = /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
+					var $email = $(id).val();
+					if(!reg.test($email)) {
+						setInfo(info, "邮箱格式不正确");
+						return false;
+					}
+					return true;
+				}
+ 
+				//手机号
+				$("#tel").blur(function() {
+					//对手机号进行验证		
+					checkTel("#tel", "#telInfo");
+				}).focus(function() {
+					clearInfo("#telInfo");
+				});
+				//验证
+				function checkTel(id, info) {
+					var reg = /^[1][0-9]{10}$/;
+					var $tel = $(id).val();
+					if(!reg.test($tel)) {
+						setInfo(info, "手机号格式不正确");
+						return false;
+					}
+					return true;
+				}
+ 
+				//QQ
+				$("#qq").blur(function() {
+					//对QQ号进行验证		
+					checkQq("#qq", "#qqInfo");
+				}).focus(function() {
+					clearInfo("#qqInfo");
+				});
+				//验证
+				function checkQq(id, info) {
+					var reg = /^[1-9][0-9]{4,}$/;
+					var $qq = $(id).val();
+					if(!reg.test($qq)) {
+						setInfo(info, "QQ号格式不正确");
+						return false;
+					}
+					return true;
+				}
+				//设置错误信息
+				function setInfo(id, info) {
+					$(id).text(info);
+				}
+ 
+				//清空错误信息
+				function clearInfo(id) {
+					$(id).text("");
+				}
+ 
+				//校验所有表单元素的内容
+				$("#form1").submit(function() {
+					return checkAll();
+				});
+ 
+				function checkAll() {
+					//					alert("222");
+					if(checkUsername('#username', '#usernameInfo') & checkPassword('#pass', '#passInfo') & checkPasswordAgain('#pass', '#passwordAgain', '#passwordAgainInfo') & checkEmail('#email', '#emailInfo') & checkTel('#tel', '#telInfo') & checkQq('#qq', '#qqInfo')) {
+						return true;
+					}
+					return false;
+				};
+ 
+			});
+		</script>
+	</head>
+ 
+	<body>
+		<form action="http://www.baidu.com" method="post" id="form1">
+			<table>
+ 
+				<tr>
+					<td>
+						<label>国家/地区</label>
+					</td>
+					<td>
+						<span id="country"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>+86（中国）</label>
+					</td>
+					<td>
+						<input type="text" id="tel" placeholder="请输入手机号" />
+					</td>
+					<td>
+						<span id="telInfo"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>密码</label>
+					</td>
+					<td>
+						<input type="password" id="pass" placeholder="请输入密码" />
+					</td>
+					<td>
+						<span id="passInfo"></span>
+					</td>
+				</tr>
+ 
+				<tr>
+					<td>
+						<label>确认密码</label>
+					</td>
+					<td>
+						<input type="password" id="passwordAgain" placeholder="请再次输入密码" />
+					</td>
+					<td>
+						<span id="passwordAgainInfo"></span>
+					</td>
+				</tr>			
+				<tr>
+					<td colspan="6">
+						<button type="submit">注册</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
+ 
+</html>
+
